@@ -6,8 +6,11 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.function.Function;
+
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static java.util.function.Predicate.not;
 
 public class Application {
 
@@ -19,7 +22,7 @@ public class Application {
 
         Map<String, Long> wordCount  = Files.lines(Paths.get("src/main/resources/1342-0.txt"))
                 .flatMap(SPLIT_WORD::splitAsStream)
-                .filter(s -> !s.isEmpty())
+                .filter(not(String::isEmpty))
                 .map(String::toLowerCase)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
